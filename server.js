@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 
 const app = require("./app");
 
-const port = 3000;
+const port = 3001;
 
 mongoose
   .connect(process.env.MONGO_DB, {
@@ -12,7 +12,7 @@ mongoose
     useUnifiedTopology: true,
   })
   .then(() => {
-    app.listen(3000, () => {
+    app.listen(3001, () => {
       console.log(`Server Connected on ${port}`);
       console.log("MONGODB CONNECTED");
     });

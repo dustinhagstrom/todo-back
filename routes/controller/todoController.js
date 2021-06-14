@@ -10,11 +10,10 @@ async function getAllTodos(req, res) {
 }
 
 async function createTodo(req, res) {
-  let { todo, isDone } = req.body;
+  let { todo } = req.body;
   try {
     let newTodo = await new Todo({
       todo: todo,
-      isDone: isDone,
     });
 
     let savedTodo = await newTodo.save();

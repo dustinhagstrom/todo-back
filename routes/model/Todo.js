@@ -6,10 +6,11 @@ const todoSchema = new mongoose.Schema({
   },
   isDone: {
     type: Boolean,
+    default: false,
   },
   Date: {
     type: Date,
-    default: Date.now,
+    default: () => Date.now(),
   },
 });
 
