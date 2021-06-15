@@ -48,9 +48,63 @@ async function deleteTodo(req, res) {
   }
 }
 
+async function updateTodoDone(req, res) {
+  try {
+    let updatedTodoDone = await Todo.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true }
+    );
+
+    res.json({ payload: updatedTodoDone });
+  } catch (e) {
+    res.status(500).json({ message: e.message, error: e });
+  }
+}
+
+async function updateTodoWords(req, res) {
+  try {
+    let updatedTodoWords = await Todo.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true }
+    );
+    res.json({ payload: updatedTodoWords });
+  } catch (e) {
+    res.status(500).json({ message: e.message, error: e });
+  }
+}
+
+async function sortTodoByDate(req, res) {
+  try {
+    let sort = req.query.sort;
+    let sortOrder = sort === "desc" ? -1 : 1;
+    console.log(sortOrder);
+    let foundTodo = await Todo.find({}).sort({ Date: sortOrder });
+    res.json({ payload: foundTodo });
+  } catch (e) {
+    res.status(500).json({ message: e.message, error: e });
+  }
+}
+
+async function sortTodoByDone(req, res) {
+  try {
+    let sort = req.query.sort;
+    let sortOrder = sort === "done" ? -1 : 1;
+    let foundTodo = await Todo.find({}).sort({ isDone: sortOrder });
+    res.json({ payload: foundTodo });
+  } catch (e) {
+    res.status(500).json({ message: e.message, error: e });
+  }
+}
+
 module.exports = {
   getAllTodos,
   createTodo,
   updateTodo,
   deleteTodo,
+  updateTodoDone,
+  updateTodoWords,
+  sortTodoByDate,
+  sortTodoByDone,
 };
