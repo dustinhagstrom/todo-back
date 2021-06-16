@@ -89,9 +89,15 @@ async function sortTodoByDate(req, res) {
 
 async function sortTodoByDone(req, res) {
   try {
-    let sort = req.query.sort;
-    let sortOrder = sort === "done" ? -1 : 1;
-    let foundTodo = await Todo.find({}).sort({ isDone: sortOrder });
+    // let sort = req.query.sort;
+    // let sortOrder = sort === "done" ? -1 : 1; //truthy-falsy
+    // let foundTodo = await Todo.find({}).sort({ isDone: sortOrder });
+
+    let isDone = req.query.isDone;
+    let isDoneOrder = isDone === "true" ? true : false;
+
+    let foundTodo = await Todo.find({ isDone: isDoneOrder });
+
     res.json({ payload: foundTodo });
   } catch (e) {
     res.status(500).json({ message: e.message, error: e });
